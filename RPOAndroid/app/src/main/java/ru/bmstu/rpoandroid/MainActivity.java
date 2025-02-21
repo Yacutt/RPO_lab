@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import ru.bmstu.rpoandroid.databinding.ActivityMainBinding;
@@ -28,18 +29,20 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        String result;
-
-        int res = initRng();
-        byte[] data = randomBytes(10);
-        byte[] key = randomBytes(1);
-        byte[] encryptData = encrypt(key, data);
-        byte[] decryptData = decrypt(key, encryptData);
+        String keyString = "1133123341145623";
+        byte[] key = keyString.getBytes(StandardCharsets.US_ASCII);
+        String dataString = "DataString";
+        byte[] data = dataString.getBytes(StandardCharsets.UTF_8);
+        byte[] encryptedData = encrypt(key, data);
+        byte[] decryptedData = decrypt(key, encryptedData);
 
         // Example of a call to a native method
         TextView tv = binding.sampleText;
 //        tv.setText(stringFromJNI());
-        result = Arrays.toString(data) + "  ==  " + Arrays.toString(encryptData) + "  ==  " + Arrays.toString(decryptData);
+        String result = stringFromJNI() + "\n"
+                + "Исходные данные: " + Arrays.toString(data) + "\n"
+                + "Закодированные данные: " + Arrays.toString(encryptedData) + "\n"
+                + "Декодированные данные: " + Arrays.toString(decryptedData);
         tv.setText(result);
     }
 
