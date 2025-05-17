@@ -20,6 +20,7 @@ public class User {
     }
 
     @Id
+    @JsonView(Views.Public.class)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     public long id;
@@ -52,6 +53,8 @@ public class User {
     @ManyToMany(mappedBy = "users")
     public Set<Museum> museums = new HashSet<>();
 
+    @Transient
+    public String np;
 
     public void addMuseum(Museum m) {
         this.museums.add(m);
