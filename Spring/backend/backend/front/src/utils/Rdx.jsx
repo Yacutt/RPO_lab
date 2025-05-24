@@ -47,7 +47,8 @@ function clear() {
 /* REDUСERS */
 
 let user =  Utils.getUser()
-const initialState = user ? { user } : {}
+// const initialState = user ? { user } : {}
+const initialState = { user: null };
 
 function authentication(state = initialState, action) {
     console.log("authentication")
@@ -85,3 +86,5 @@ export const store = createStore(
     rootReducer,
     applyMiddleware( loggerMiddleware )
 );
+
+
